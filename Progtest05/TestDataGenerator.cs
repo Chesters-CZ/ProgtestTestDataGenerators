@@ -8,10 +8,16 @@ namespace Progtest05
     {
         private DateTime _maxDateSoFar = new DateTime(1800, 1, 1);
         private Random _random = new Random();
+        private int _maxReviewRating = 0;
+        private int _reviewCount = 0;
 
         public String GetNewReview()
         {
-            return " + " + GetNewDate() + " " + _random.Next(1, 4097) + " " +
+            int score = _random.Next(1, 4097);
+            if (score > _maxReviewRating)
+                _maxReviewRating = score;
+            _reviewCount++;
+            return "+ " + GetNewDate() + " " + score + " " +
                    GetRandomString(_random.Next(2, 64)) + "\n";
         }
 
@@ -39,7 +45,8 @@ namespace Progtest05
 
         public string GetNewQuery()
         {
-            return " # " + _random.Next(1, (int)(Int32.MaxValue * 0.75)) + "\n";
+            return "# " + _random.Next(1,
+                (int)(_maxReviewRating * _reviewCount * (_random.NextDouble() + _random.NextDouble()))) % Int32.MaxValue + "\n";
         }
     }
 }

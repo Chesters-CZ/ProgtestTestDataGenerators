@@ -34,7 +34,7 @@ namespace Progtest05
             Console.WriteLine(" Done!");
 
             Console.WriteLine("Will generate queries in format '# number'");
-            Console.WriteLine("Number will be less than 3/4 of Int32 max value");
+            Console.WriteLine("Number will be less than 1/4 of Int32 max value");
             Console.WriteLine();
             Console.WriteLine("How many queries?");
             entryCount = Convert.ToInt32(Console.ReadLine());
@@ -51,6 +51,7 @@ namespace Progtest05
             }
 
             Console.WriteLine(" Done!");
+            result += "\n";
             Console.WriteLine("Print to file or to console? (F/C)");
             switch (Console.Read())
             {
@@ -66,7 +67,7 @@ namespace Progtest05
                     Console.WriteLine();
                     if (File.Exists(pathToDesktop + "/testdata.txt"))
                     {
-                        Console.WriteLine("Overwrite exising data? (Y/N");
+                        Console.WriteLine("Overwrite exising data? (Y/N)");
 
                         switch (Console.Read())
                         {
