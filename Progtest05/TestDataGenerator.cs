@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace Progtest05
@@ -8,21 +9,20 @@ namespace Progtest05
         private DateTime _maxDateSoFar = new DateTime(1800, 1, 1);
         private Random _random = new Random();
 
-        public String GetNewTestData()
+        public String GetNewReview()
         {
-            return GetNewDate() + " " + _random.Next(1, Int32.MaxValue / 2) + " " +
+            return " + " + GetNewDate() + " " + _random.Next(1, 4097) + " " +
                    GetRandomString(_random.Next(2, 64)) + "\n";
         }
 
         private string GetRandomString(int wordSize)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            Random random = new Random();
 
-            stringBuilder.Append((char)(random.NextDouble() * (90 - 65) + 65));
+            stringBuilder.Append((char)(_random.NextDouble() * (90 - 65) + 65));
             for (int j = 0; j < wordSize; j++)
             {
-                stringBuilder.Append((char)(random.NextDouble() * (122 - 97) + 97));
+                stringBuilder.Append((char)(_random.NextDouble() * (122 - 97) + 97));
             }
 
             return stringBuilder.ToString();
@@ -31,10 +31,15 @@ namespace Progtest05
         private string GetNewDate()
         {
             if (_maxDateSoFar > new DateTime(2999, 12, 1))
-                return new DateTime(2999, 12, 31).ToString();
-            
+                return new DateTime(2999, 12, 31).ToString("yyyy-M-dd");
+
             _maxDateSoFar = _maxDateSoFar.AddDays(_random.Next(0, 5) * _random.Next(0, 5));
-            return _maxDateSoFar.ToShortDateString();
+            return _maxDateSoFar.ToString("yyyy-M-dd");
+        }
+
+        public string GetNewQuery()
+        {
+            return " # " + _random.Next(1, (int)(Int32.MaxValue * 0.75)) + "\n";
         }
     }
 }

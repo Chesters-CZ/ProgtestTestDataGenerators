@@ -10,24 +10,44 @@ namespace Progtest05
         public static void Main(string[] args)
         {
             String result = "";
-            String pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"/Desktop";
+            String pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Desktop";
             TestDataGenerator testDataGenerator = new TestDataGenerator();
 
-            Console.WriteLine("Will generate test data in format \'YYYY-MM-DD num randomString\'");
+            Console.WriteLine("Will generate reviews in format \' + YYYY-MM-DD num randomString\'");
             Console.WriteLine(
                 "Dates are input in chronological order. Numbers will be >0. Random string will be <=4096 chars");
             Console.WriteLine();
-            Console.WriteLine("How many entries?");
+            Console.WriteLine("How many reviews?");
             int entryCount = Convert.ToInt32(Console.ReadLine());
+            
             Console.Write("Generating");
             for (int i = 0; i < entryCount; i++)
             {
-                if (i == entryCount/4 || i == (entryCount/4)*2 || i == (entryCount/4)*3)
+                if (i == entryCount / 4 || i == (entryCount / 4) * 2 || i == (entryCount / 4) * 3)
+                {
+                    Console.Write(".");
+                }
+
+                result += testDataGenerator.GetNewReview();
+            }
+
+            Console.WriteLine(" Done!");
+
+            Console.WriteLine("Will generate queries in format '# number'");
+            Console.WriteLine("Number will be less than 3/4 of Int32 max value");
+            Console.WriteLine();
+            Console.WriteLine("How many queries?");
+            entryCount = Convert.ToInt32(Console.ReadLine());
+            
+            Console.Write("Generating");
+            for (int i = 0; i < entryCount; i++)
+            {
+                if (i == entryCount / 4 || i == (entryCount / 4) * 2 || i == (entryCount / 4) * 3)
                 {
                     Console.Write(".");
                 }
                 
-                result += testDataGenerator.GetNewTestData();
+                result += testDataGenerator.GetNewQuery();
             }
 
             Console.WriteLine(" Done!");
@@ -44,7 +64,7 @@ namespace Progtest05
                 case 'f':
                 case 'F':
                     Console.WriteLine();
-                    if (File.Exists(pathToDesktop+"./testdata.txt"))
+                    if (File.Exists(pathToDesktop + "/testdata.txt"))
                     {
                         Console.WriteLine("Overwrite exising data? (Y/N");
 
@@ -78,14 +98,14 @@ namespace Progtest05
                             case 'Y':
                                 Console.WriteLine();
                                 Console.Write("Deleting...");
-                                File.Delete(pathToDesktop+"./testdata.txt");
+                                File.Delete(pathToDesktop + "./testdata.txt");
                                 Console.WriteLine(" Done!");
                                 break;
                         }
                     }
 
-                    Console.Write("Writing to " + pathToDesktop+"/testdata.txt ...");
-                    File.WriteAllText(pathToDesktop+"/testdata.txt", result);
+                    Console.Write("Writing to " + pathToDesktop + "/testdata.txt ...");
+                    File.WriteAllText(pathToDesktop + "/testdata.txt", result);
                     Console.WriteLine(" Done!");
                     break;
             }
